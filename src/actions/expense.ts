@@ -21,13 +21,13 @@ export const deleteExpense = async (expenseId: number) => {
 export const createExpense = async (data: {
   name: string;
   amount: string;
-  budgetId: string;
+  budgetId: number;
 }) => {
   const [newExpense] = await db
     .insert(Expenses)
     .values({
       name: data.name,
-      amount: Number(data.amount),
+      amount: data.amount,
       budgetId: data.budgetId,
     })
     .returning();

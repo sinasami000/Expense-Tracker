@@ -83,7 +83,7 @@ export const getBudgetInformation = async (id: number) => {
   return response;
 };
 
-export const deleteBudget = async (budgetId: string) => {
+export const deleteBudget = async (budgetId: number) => {
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
   await db.delete(Budgets).where(eq(Budgets.id, budgetId));

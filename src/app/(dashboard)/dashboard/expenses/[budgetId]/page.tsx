@@ -57,7 +57,7 @@ export default function Page({ params }: PageProps) {
     setIsDeletingBudget(true);
     setOpenDeleteDialogue(true);
     try {
-      await deleteBudget(budgetId);
+      await deleteBudget(Number(budgetId));
       toast.success("Budget deleted successfully");
       router.replace("/dashboard/budgets");
     } catch (error) {

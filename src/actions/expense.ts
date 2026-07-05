@@ -5,7 +5,7 @@ import { Budgets, Expenses } from "@/utils/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { desc, eq } from "drizzle-orm";
 
-export const getExpenses = async (budgetId: string) => {
+export const getExpenses = async (budgetId: number) => {
   const data = await db
     .select()
     .from(Expenses)
@@ -56,6 +56,9 @@ export const updateExpense = async (
 export const getLatestExpenses = async () => {
   const user = await currentUser();
   const email = user?.emailAddresses[0].emailAddress;
+  if (!email) {
+    throw new Error("Unauthorized");
+  }
   const result = await db
     .select({
       id: Expenses.id,

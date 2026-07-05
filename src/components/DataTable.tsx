@@ -60,7 +60,7 @@ export function DataTable({ budgetId }: { budgetId: string }) {
   const [draftAmount, setDraftAmount] = useState("");
   async function fetchExpense() {
     try {
-      const res = await getExpenses(budgetId);
+      const res = await getExpenses(Number(budgetId));
       console.log(res);
       setExpenses(Array.isArray(res) ? res : []);
     } catch (error) {

@@ -48,10 +48,10 @@ export default function Page({ params }: PageProps) {
     }
   }
   const expenses = useExpenses((state) => state.expenses);
-  const budgets = useBudgets(state => state.budgets);
+  const budgets = useBudgets((state) => state.budgets);
   useEffect(() => {
     gettingData();
-  }, [budgetId, expenses,budgets]);
+  }, [budgetId, expenses, budgets]);
   const router = useRouter();
   const handleDeleteBudget = async () => {
     setIsDeletingBudget(true);

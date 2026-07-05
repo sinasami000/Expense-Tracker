@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/utils/db";
-import { desc, eq, getTableColumns, sql } from "drizzle-orm";
+import { and, desc, eq, getTableColumns, sql } from "drizzle-orm";
 import { Budgets, budgetType, Expenses } from "@/utils/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 
@@ -64,6 +64,9 @@ export const getBudgetExpense = async (userEmail: string) => {
 export const getBudgetInformation = async (id: number) => {
   const user = await currentUser();
   const email = user?.emailAddresses[0].emailAddress;
+  if (!email) {
+    throw new Error("Unauthorized");
+  }
   const response = await db
     .select({
       ...getTableColumns(Budgets),
@@ -74,14 +77,15 @@ export const getBudgetInformation = async (id: number) => {
     })
     .from(Budgets)
     .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-    .where(eq(Budgets.createdBy, email))
-    .where(eq(Budgets.id, id))
+    .where(and(eq(Budgets.createdBy, email), eq(Budgets.id, id)))
     .groupBy(Budgets.id);
 
   return response;
 };
 
 export const deleteBudget = async (budgetId: string) => {
+  const { userId } = await auth();
+  if (!userId) throw new Error("Unauthorized");
   await db.delete(Budgets).where(eq(Budgets.id, budgetId));
 };
 

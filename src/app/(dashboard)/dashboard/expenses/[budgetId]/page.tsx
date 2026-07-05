@@ -83,7 +83,7 @@ export default function Page({ params }: PageProps) {
           <h1 className="font-bold text-xl sm:text-2xl">My Expenses</h1>
         </div>
         <div className="flex gap-1 items-center">
-          {budgetId && <EditBudgetDialogue budgetId={budgetId} />}
+          {budgetId && <EditBudgetDialogue budgetId={Number(budgetId)} />}
 
           <AlertDialog
             open={openDeleteDialogue}

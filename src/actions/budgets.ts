@@ -25,7 +25,7 @@ export const createBudget = async (
     .insert(Budgets)
     .values({
       name: budgetInfos.name,
-      amount: budgetInfos.amount,
+      amount: budgetInfos.amount.toString(),
       icon: budgetInfos.icon,
       createdBy,
     })
@@ -44,19 +44,6 @@ export type BudgetWithExpenseStats = {
   totalSpend: number;
   totalItems: number;
 };
-
-// export const getBudgetExpense = async () => {
-//   const result = await db
-//     .select({
-//       ...getTableColumns(Budgets),
-//       totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
-//       totalItems: sql`count(${Expenses.id})`.mapWith(Number),
-//     })
-//     .from(Budgets)
-//     .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-//     .groupBy(Budgets.id);
-//   return result;
-// };
 export const getBudgetExpense = async (userEmail: string) => {
   const result = await db
     .select({
@@ -112,6 +99,6 @@ export const updateBudget = async (
   if (!updated) {
     throw new Error("Budget not found or unauthorized");
   }
-  console.log(updated)
+  console.log(updated);
   return updated;
 };

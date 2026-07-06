@@ -9,7 +9,7 @@ import BudgetCardSkeleton from "@/components/BudgetCardSkeleton";
 import { DataTable } from "@/components/DataTable";
 import { NewExpenseForm } from "@/components/NewExpenseForm";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Edit2, Loader2, Trash2 } from "lucide-react";
+import { ArrowLeft, Loader2, Trash2 } from "lucide-react";
 import { use, useEffect, useState } from "react";
 import {
   AlertDialog,

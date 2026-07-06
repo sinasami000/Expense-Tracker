@@ -18,7 +18,6 @@ function BudgetList() {
     if (email) {
       try {
         const res = await getBudgetExpense(email);
-        console.log(res);
         setMainBudgets(res);
       } catch (error) {
         console.log(error);

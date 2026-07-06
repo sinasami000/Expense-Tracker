@@ -31,7 +31,6 @@ export const createExpense = async (data: {
       budgetId: data.budgetId,
     })
     .returning();
-  console.log(newExpense);
   return newExpense;
 };
 
@@ -49,7 +48,6 @@ export const updateExpense = async (
   if (!updated) {
     throw new Error("Expense not found or unauthorized");
   }
-  console.log(updated);
   return updated;
 };
 

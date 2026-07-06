@@ -23,23 +23,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { createExpense } from "@/actions/expense";
 import { useExpenses } from "@/store";
-import { BudgetWithExpenseStats } from "@/actions/budgets";
 import { Loader2 } from "lucide-react";
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(5, "Expense name must be at least 5 characters.")
-    .max(32, "Expense name must be at most 32 characters."),
-  amount: z
-    .string()
-    .min(1, "Amount is required.")
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-      message: "Amount must be a positive number.",
-    }),
-});
-
-export function NewExpenseForm({ budgetId }: { budgetId: string }) {
+export function NewExpenseForm({ budgetId,leftAmount }: { budgetId: string,leftAmount: number }) {
+  const formSchema = z.object({
+    name: z
+      .string()
+      .min(5, "Expense name must be at least 5 characters.")
+      .max(32, "Expense name must be at most 32 characters."),
+    amount: z
+      .string()
+      .min(1, "Amount is required.")
+      .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+        message: "Amount must be a positive number.",
+      })
+      .refine((val) => Number(val) <= leftAmount, {
+        message: `Amount cannot be more than ${leftAmount}.`,
+      }),
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,7 +51,6 @@ export function NewExpenseForm({ budgetId }: { budgetId: string }) {
   const addExpense = useExpenses((state) => state.addExpense);
   async function dbCall(data: z.infer<typeof formSchema>) {
     const res = await createExpense({ ...data, budgetId: Number(budgetId) });
-    console.log(res);
     toast.success("Expense created successfully");
     addExpense(res);
     form.reset();

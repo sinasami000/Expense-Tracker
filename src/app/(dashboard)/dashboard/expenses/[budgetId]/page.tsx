@@ -37,10 +37,12 @@ export default function Page({ params }: PageProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [budgetData, setBudgetData] = useState<BudgetWithExpenseStats | null>(null);
   const [isDeletingBudget, setIsDeletingBudget] = useState(false);
+  const [leftAmount,setLeftAmount] = useState(0);
   async function gettingData() {
     try {
-      const data = await getBudgetInformation(Number(budgetId));
-      setBudgetData(data[0]);
+      const [data] = await getBudgetInformation(Number(budgetId));
+      setBudgetData(data);
+      setLeftAmount(Number(data.amount)-data.totalSpend);
     } catch (error) {
       console.log(error);
     } finally {
@@ -137,7 +139,7 @@ export default function Page({ params }: PageProps) {
             <BudgetCardSkeleton />
           )}
         </div>
-        {isLoading ? <SkeletonForm /> : <NewExpenseForm budgetId={budgetId} />}
+        {isLoading ? <SkeletonForm /> : <NewExpenseForm budgetId={budgetId} leftAmount={leftAmount} />}
       </div>
 
       <div className="mt-6">

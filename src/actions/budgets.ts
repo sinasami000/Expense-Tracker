@@ -103,6 +103,5 @@ export const updateBudget = async (
   if (!updated) {
     throw new Error("Budget not found or unauthorized");
   }
-  console.log(updated);
   return updated;
 };

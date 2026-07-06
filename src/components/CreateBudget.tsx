@@ -42,7 +42,6 @@ function CreateBudget() {
           { ...formInputs, amount: Number(formInputs.amount) },
           email,
         );
-        console.log(budget[0]);
         toast.success("Budget created successfully");
         addBudget(budget[0]);
         setOpen(false);
@@ -59,9 +58,6 @@ function CreateBudget() {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <form
-          onSubmit={(e) => {
-            console.log(e);
-          }}
         >
           <DialogTrigger asChild>
             <Card className="flex h-full cursor-pointer hover:shadow-md items-center justify-center">

@@ -61,7 +61,6 @@ export function DataTable({ budgetId }: { budgetId: string }) {
   async function fetchExpense() {
     try {
       const res = await getExpenses(Number(budgetId));
-      console.log(res);
       setExpenses(Array.isArray(res) ? res : []);
     } catch (error) {
       console.log(error);

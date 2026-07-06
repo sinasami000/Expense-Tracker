@@ -22,7 +22,6 @@ function page() {
     if (email) {
       if (email) {
         const info = await getBudgetExpense(email);
-        console.log(info);
         setTotalBudget(
           info.reduce((prev, curr) => {
             return prev + Number(curr.amount);

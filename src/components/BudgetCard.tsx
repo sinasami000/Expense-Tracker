@@ -23,7 +23,6 @@ function BudgetCard({ budget }: { budget: BudgetWithExpenseStats }) {
   const percentage = amount > 0 ? (spend / amount) * 100 : 0;
   const clampedPercentage = Math.min(percentage, 100);
 
-  // Color signals status: calm by default, amber near the limit, red over it
   const barColor = isOverBudget
     ? "bg-red-500"
     : percentage >= 80

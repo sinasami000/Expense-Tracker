@@ -40,8 +40,8 @@ export const useExpenses = create<ExpenseStore>()((set) => ({
     set((state) => ({ expenses: [newExpense, ...state.expenses] })),
   editExpense: (updatedExpense: expenseType) =>
     set((state) => ({
-      expenses: state.expenses.map((each) =>
-        each.id === updatedExpense.id ? updatedExpense : each,
+      expenses: state.expenses.map((exp) =>
+        exp.id === updatedExpense.id ? updatedExpense : exp,
       ),
     })),
   deleteExpense: (id: expenseType["id"]) =>

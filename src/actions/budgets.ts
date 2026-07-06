@@ -39,8 +39,8 @@ export type BudgetWithExpenseStats = {
   amount: string;
   icon: string | null;
   createdBy: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   totalSpend: number;
   totalItems: number;
 };

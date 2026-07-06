@@ -49,7 +49,7 @@ export function NewExpenseForm({ budgetId }: { budgetId: string }) {
   });
   const addExpense = useExpenses((state) => state.addExpense);
   async function dbCall(data: z.infer<typeof formSchema>) {
-    const res = await createExpense({ ...data, budgetId });
+    const res = await createExpense({ ...data, budgetId: Number(budgetId) });
     console.log(res);
     toast.success("Expense created successfully");
     addExpense(res);
@@ -126,13 +126,20 @@ export function NewExpenseForm({ budgetId }: { budgetId: string }) {
       </CardContent>
       <CardFooter>
         <Field orientation="horizontal">
-          <Button form="form-rhf-demo" disabled={isSubmitting} type="submit" className="w-full">
-            {isSubmitting? (
+          <Button
+            form="form-rhf-demo"
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full"
+          >
+            {isSubmitting ? (
               <>
-              <Loader2 className="animate-spin" />
-              Creating
+                <Loader2 className="animate-spin" />
+                Creating
               </>
-            ) : "Create expense"}
+            ) : (
+              "Create expense"
+            )}
           </Button>
         </Field>
       </CardFooter>

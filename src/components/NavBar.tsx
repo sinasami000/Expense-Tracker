@@ -6,7 +6,6 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 function NavBar() {
-  // const { data: session } = useSession();
   const { isSignedIn } = useUser();
   return (
     <div className="flex bg-white w-full p-6 items-center justify-between border shadow-sm">

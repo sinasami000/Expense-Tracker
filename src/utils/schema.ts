@@ -39,6 +39,6 @@ export const Expenses = pgTable("expenses", {
 
 export type budgetType = typeof Budgets.$inferSelect;
 export type newBudgetType = typeof Budgets.$inferInsert;
-export type expenseType = typeof Budgets.$inferSelect;
-export type newExpenseType = typeof Budgets.$inferInsert;
+export type expenseType = typeof Expenses.$inferSelect;
+export type newExpenseType = typeof Expenses.$inferInsert;
 // 01873433727

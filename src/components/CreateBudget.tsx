@@ -38,7 +38,10 @@ function CreateBudget() {
     if (email) {
       try {
         setLoading(true);
-        const budget = await createBudget(formInputs, email);
+        const budget = await createBudget(
+          { ...formInputs, amount: Number(formInputs.amount) },
+          email,
+        );
         console.log(budget[0]);
         toast.success("Budget created successfully");
         addBudget(budget[0]);
